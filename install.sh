@@ -18,81 +18,89 @@ then
     exit 1;
 fi
 
-echo "The following questions will quide you through selecting the files and dependencies needed for CADD."
-echo "After this, you will see an overview of the selected files before the download and installation starts."
-echo "Please note, that for successfully running CADD locally, you will need the conda environment and at least one set of annotations."
-echo ""
+#echo "The following questions will quide you through selecting the files and dependencies needed for CADD."
+#echo "After this, you will see an overview of the selected files before the download and installation starts."
+#echo "Please note, that for successfully running CADD locally, you will need the conda environment and at least one set of annotations."
+#echo ""
 
-# ask which parts of CADD the user wants to install
-read -p "Do you want to install the virtual environment with all CADD dependencies via conda? (y)/n " CHOICE
-case "$CHOICE" in
-    y|Y ) ENV=true;;
-    n|N ) ENV=false;;
-    * ) ENV=true; echo "Assuming Yes.";;
-esac
+## ask which parts of CADD the user wants to install
+#read -p "Do you want to install the virtual environment with all CADD dependencies via conda? (y)/n " CHOICE
+#case "$CHOICE" in
+#    y|Y ) ENV=true;;
+#    n|N ) ENV=false;;
+#    * ) ENV=true; echo "Assuming Yes.";;
+#esac
+#
+#read -p "Do you want to install CADD v1.5 for GRCh38/hg38? (y)/n " CHOICE
+#case "$CHOICE" in
+#    y|Y ) GRCh38v15=true;;
+#    n|N ) GRCh38v15=false;;
+#    * ) GRCh38v15=true; echo "Assuming Yes.";;
+#esac
+#
+#read -p "Do you want to install CADD v1.4 for GRCh37/hg19? (y)/n " CHOICE
+#case "$CHOICE" in
+#    y|Y ) GRCh37=true;;
+#    n|N ) GRCh37=false;;
+#    * ) GRCh37=true; echo "Assuming Yes.";;
+#esac
+#
+#read -p "Do you want to install CADD v1.4 for GRCh38/hg38? Note that this version has been replaced by CADD v1.5 y/(n) " CHOICE
+#case "$CHOICE" in
+#    y|Y ) GRCh38=true;;
+#    n|N ) GRCh38=false;;
+#    * ) GRCh38=false; echo "Assuming No.";;
+#esac
+#
+#if [ "$GRCh37" = false ] && [ "$GRCh38" = false ] && [ "$GRCh38v15" = false ]
+#then
+#    echo "You have choosen to not install any of the available CADD models. Discontinuing installation.";
+#    exit 0;
+#fi
+#
+#read -p "Do you want to load annotations (Annotations can also be downloaded manually from the website)? (y)/n " CHOICE
+#case "$CHOICE" in
+#    y|Y ) ANNOTATIONS=true;;
+#    n|N ) ANNOTATIONS=false;;
+#    * ) ANNOTATIONS=true; echo "Assuming Yes.";;
+#esac
+#
+#read -p "Do you want to load prescored variants (Makes SNV calling faster. Can also be loaded/installed later.)? y/(n) " CHOICE
+#case "$CHOICE" in
+#    y|Y ) PRESCORE=true;;
+#    n|N ) PRESCORE=false;;
+#    * ) PRESCORE=false; echo "Assuming No.";;
+#esac
+#
+#if [ "$PRESCORE" = true ]
+#then
+#    read -p "Do you want to load prescored variants for scoring with annotations (Warning: These files are very big)? y/(n) " CHOICE
+#    case "$CHOICE" in
+#        y|Y ) INCANNO=true;;
+#        n|N ) INCANNO=false;;
+#        * ) INCANNO=false; echo "Assuming No.";;
+#    esac
+#    read -p "Do you want to load prescored variants for scoring without annotations? y/(n) " CHOICE
+#    case "$CHOICE" in
+#        y|Y ) NOANNO=true;;
+#        n|N ) NOCANNO=false;;
+#        * ) NOANNO=false; echo "Assuming No.";;
+#    esac
+#    read -p "Do you also want to load prescored InDels? We provide scores for well known InDels from sources like ClinVar, gnomAD/TOPMed etc. y/(n) " CHOICE
+#    case "$CHOICE" in
+#        y|Y ) INDELS=true;;
+#        n|N ) INDELS=false;;
+#        * ) INDELS=false; echo "Assuming No.";;
+#    esac
+#fi
 
-read -p "Do you want to install CADD v1.5 for GRCh38/hg38? (y)/n " CHOICE
-case "$CHOICE" in
-    y|Y ) GRCh38v15=true;;
-    n|N ) GRCh38v15=false;;
-    * ) GRCh38v15=true; echo "Assuming Yes.";;
-esac
-
-read -p "Do you want to install CADD v1.4 for GRCh37/hg19? (y)/n " CHOICE
-case "$CHOICE" in
-    y|Y ) GRCh37=true;;
-    n|N ) GRCh37=false;;
-    * ) GRCh37=true; echo "Assuming Yes.";;
-esac
-
-read -p "Do you want to install CADD v1.4 for GRCh38/hg38? Note that this version has been replaced by CADD v1.5 y/(n) " CHOICE
-case "$CHOICE" in
-    y|Y ) GRCh38=true;;
-    n|N ) GRCh38=false;;
-    * ) GRCh38=false; echo "Assuming No.";;
-esac
-
-if [ "$GRCh37" = false ] && [ "$GRCh38" = false ] && [ "$GRCh38v15" = false ]
-then
-    echo "You have choosen to not install any of the available CADD models. Discontinuing installation.";
-    exit 0;
-fi
-
-read -p "Do you want to load annotations (Annotations can also be downloaded manually from the website)? (y)/n " CHOICE
-case "$CHOICE" in
-    y|Y ) ANNOTATIONS=true;;
-    n|N ) ANNOTATIONS=false;;
-    * ) ANNOTATIONS=true; echo "Assuming Yes.";;
-esac
-
-read -p "Do you want to load prescored variants (Makes SNV calling faster. Can also be loaded/installed later.)? y/(n) " CHOICE
-case "$CHOICE" in
-    y|Y ) PRESCORE=true;;
-    n|N ) PRESCORE=false;;
-    * ) PRESCORE=false; echo "Assuming No.";;
-esac
-
-if [ "$PRESCORE" = true ]
-then
-    read -p "Do you want to load prescored variants for scoring with annotations (Warning: These files are very big)? y/(n) " CHOICE
-    case "$CHOICE" in
-        y|Y ) INCANNO=true;;
-        n|N ) INCANNO=false;;
-        * ) INCANNO=false; echo "Assuming No.";;
-    esac
-    read -p "Do you want to load prescored variants for scoring without annotations? y/(n) " CHOICE
-    case "$CHOICE" in
-        y|Y ) NOANNO=true;;
-        n|N ) NOCANNO=false;;
-        * ) NOANNO=false; echo "Assuming No.";;
-    esac
-    read -p "Do you also want to load prescored InDels? We provide scores for well known InDels from sources like ClinVar, gnomAD/TOPMed etc. y/(n) " CHOICE
-    case "$CHOICE" in
-        y|Y ) INDELS=true;;
-        n|N ) INDELS=false;;
-        * ) INDELS=false; echo "Assuming No.";;
-    esac
-fi
+# preset the options
+ENV=true
+GRCh38v15=true
+GRCh37=false
+GRCh38=false
+ANNOTATIONS=false
+PRESCORE=false
 
 ### FILE CONFIGURATION
 
@@ -214,13 +222,13 @@ then
     fi
 fi
 
-echo "Please make sure you have enough disk space available."
-
-read -p "Ready to continue? (y)/n " CHOICE
-case "$CHOICE" in
-    n|N ) echo "You canceled the installation."; exit 0;;
-    * ) echo "Starting installation. This will take some time.";;
-esac
+#echo "Please make sure you have enough disk space available."
+#
+#read -p "Ready to continue? (y)/n " CHOICE
+#case "$CHOICE" in
+#    n|N ) echo "You canceled the installation."; exit 0;;
+#    * ) echo "Starting installation. This will take some time.";;
+#esac
 
 ### INSTALLATION
 
