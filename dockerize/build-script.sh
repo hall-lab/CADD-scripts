@@ -60,3 +60,5 @@ bash ./install.sh
 cp -v CADD.sh /opt/conda/envs/cadd-env-v1.5/bin
 cp -v src/scripts/*.py /opt/conda/envs/cadd-env-v1.5/bin
 cp -rv src/scripts/lib /opt/conda/envs/cadd-env-v1.5/lib/python2.7/site-packages
+
+exit 0;
