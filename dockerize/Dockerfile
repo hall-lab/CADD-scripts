@@ -23,4 +23,5 @@ WORKDIR /build
 # Import resources
 COPY ./build-script.sh /build
 
-RUN ["/bin/bash", "build-script.sh"]
+RUN ["/bin/bash", "-x", "build-script.sh"]
+ENV PATH="/opt/conda/bin:${PATH}"
