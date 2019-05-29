@@ -26,4 +26,6 @@ WORKDIR /build
 COPY ./build-script.sh /build
 
 RUN ["/bin/bash", "-x", "build-script.sh"]
+RUN apt-get clean all
+
 ENV PATH="/opt/conda/bin:${PATH}"
