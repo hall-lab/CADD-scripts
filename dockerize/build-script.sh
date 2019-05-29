@@ -9,6 +9,7 @@ bash ./Miniconda2-latest-Linux-x86_64.sh -b -p /opt/conda
 export PATH=/opt/conda/bin:$PATH
 conda init
 echo "{}" > /.condarc
+chmod 0666 /.condarc
 
 
 # install CADD
