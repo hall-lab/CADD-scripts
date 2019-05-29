@@ -11,6 +11,7 @@ RUN apt-get update -qq \
         apt-transport-https \
         bzip2 \
         git \
+        ca-certificates \
         curl \
         libnss-sss \
     --no-install-recommends
