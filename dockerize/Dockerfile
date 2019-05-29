@@ -7,10 +7,12 @@ VOLUME /release
 
 
 RUN apt-get update -qq \
-    && apt-get -y install apt-transport-https \
-    &&  apt-get install -y bzip2 \
-    &&  apt-get install -y git \
-    &&  apt-get install -y curl \
+    && apt-get -y install \
+        apt-transport-https \
+        bzip2 \
+        git \
+        curl \
+        libnss-sss \
     --no-install-recommends
 
 # https://serverfault.com/questions/683605/docker-container-timezone-will-not-reflect-changes
