@@ -59,8 +59,13 @@ bash ./install.sh
 #root@33c085acd712:/build/CADD-scripts# which conda
 #/opt/conda/bin/conda
 
-cp -v CADD.sh /opt/conda/envs/cadd-env-v1.5/bin
-cp -v src/scripts/*.py /opt/conda/envs/cadd-env-v1.5/bin
-cp -rv src/scripts/lib /opt/conda/envs/cadd-env-v1.5/lib/python2.7/site-packages
+BASE_CADD=/opt/CADD-1-5
+mkdir -p ${BASE_CADD}
+cp -rv config ${BASE_CADD}
+cp -rv data ${BASE_CADD}
+cp -rv src ${BASE_CADD}
+cp -rv CADD.sh ${BASE_CADD}
+
+chmod -R 0666 ${BASE_CADD}/data
 
 exit 0;
