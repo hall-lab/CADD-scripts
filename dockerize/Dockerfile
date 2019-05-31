@@ -3,12 +3,12 @@ MAINTAINER Indraniel Das <idas@wustl.edu>
 
 # Volumes
 VOLUME /build
-VOLUME /release
-
 
 RUN apt-get update -qq \
     && apt-get -y install \
         apt-transport-https \
+        less \
+        emacs \
         bzip2 \
         git \
         ca-certificates \
