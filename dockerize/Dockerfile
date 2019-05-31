@@ -29,4 +29,5 @@ COPY ./build-script.sh /build
 RUN ["/bin/bash", "-x", "build-script.sh"]
 RUN apt-get clean all
 
-ENV PATH="/opt/conda/bin:${PATH}"
+ENV PATH="/opt/CADD-1-5:/opt/conda/envs/cadd-env-v1.5/bin:/opt/conda/bin:${PATH}"
+ENV PYTHONPATH=/opt/conda/envs/cadd-env-v1.5/lib/python2.7/site-packages
