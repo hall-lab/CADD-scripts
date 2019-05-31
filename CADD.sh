@@ -1,13 +1,9 @@
 #!/bin/bash
 
-# ensure we are using the conda version included in this docker image
-export PATH=/opt/conda/bin:$PATH
-
-usage="$(basename "$0") [-d <datadir>][-o <outfile>] [-g <genomebuild>] [-v <caddversion>] [-a] <infile>  -- CADD version 1.5
+usage="$(basename "$0") [-o <outfile>] [-g <genomebuild>] [-v <caddversion>] [-a] <infile>  -- CADD version 1.5
 
 where:
     -h  show this help text
-    -d  the base directory where the corresponding CADD annotation and configs are located
     -o  out tsv.gz file (generated from input file name if not set)
     -g  genome build (supported are GRCh37 and GRCh38 [default: GRCh38])
     -v  CADD version (either v1.4 or v1.5 [default: v1.5])
@@ -19,15 +15,12 @@ unset OPTIND
 
 GENOMEBUILD="GRCh38"
 ANNOTATION=false
-DATADIR=""
 OUTFILE=""
 VERSION="v1.5"
-while getopts ':hd:o:g:v:a' option; do
+while getopts ':ho:g:v:a' option; do
   case "$option" in
     h) echo "$usage"
        exit
-       ;;
-    d) DATADIR=$OPTARG
        ;;
     o) OUTFILE=$OPTARG
        ;;
@@ -60,18 +53,6 @@ FILEFORMAT=${FILENAME#$NAME\.}
 
 SCRIPT=$(readlink -f "$0")
 export CADD=$(dirname "$SCRIPT")
-
-if [ "$DATADIR" == "" ]
-then
-    echo "Unknown location for the CADD data/config directory. Please specify a base directory path via the '-d' option!."
-    exit 1
-fi
-
-if [ ! -d "$DATADIR" ]
-then
-    echo "Unknown location for the CADD data/config directory: '${DATADIR}'"
-    exit 1
-fi
 
 if [ "$FILEFORMAT" != "vcf" ] && [ "$FILEFORMAT" != "vcf.gz" ]
 then
@@ -110,11 +91,11 @@ else
 fi
 
 # Pipeline configuration
-PRESCORED_FOLDER=$DATADIR/data/prescored/${GENOMEBUILD}_${VERSION}/$ANNO_FOLDER
-REFERENCE_CONFIG=$DATADIR/config/references_${GENOMEBUILD}_${VERSION}.cfg
-IMPUTE_CONFIG=$DATADIR/config/impute_${GENOMEBUILD}_${VERSION}.cfg
-MODEL=$DATADIR/data/models/$GENOMEBUILD/CADD${VERSION}-$GENOMEBUILD.mod
-CONVERSION_TABLE=$DATADIR/data/models/$GENOMEBUILD/conversionTable_CADD${VERSION}-$GENOMEBUILD.txt
+PRESCORED_FOLDER=$CADD/data/prescored/${GENOMEBUILD}_${VERSION}/$ANNO_FOLDER
+REFERENCE_CONFIG=$CADD/config/references_${GENOMEBUILD}_${VERSION}.cfg
+IMPUTE_CONFIG=$CADD/config/impute_${GENOMEBUILD}_${VERSION}.cfg
+MODEL=$CADD/data/models/$GENOMEBUILD/CADD${VERSION}-$GENOMEBUILD.mod
+CONVERSION_TABLE=$CADD/data/models/$GENOMEBUILD/conversionTable_CADD${VERSION}-$GENOMEBUILD.txt
 
 # determine VEP database version
 DBVERSION=92
@@ -142,9 +123,9 @@ mkdir -p $TMP_FOLDER
 # Loading the environment
 if [ "$VERSION" == "v1.4" ]
 then
-    conda activate cadd-env
+    source activate cadd-env
 else
-    conda activate cadd-env-v1.5
+    source activate cadd-env-v1.5
 fi
 
 # File preparation
