@@ -59,13 +59,33 @@ bash ./install.sh
 #root@33c085acd712:/build/CADD-scripts# which conda
 #/opt/conda/bin/conda
 
+conda clean --all
+
+groupadd gsc
+usermod -a -G gsc root
+
 BASE_CADD=/opt/CADD-1-5
-mkdir -p ${BASE_CADD}
-cp -rv config ${BASE_CADD}
-cp -rv data ${BASE_CADD}
-cp -rv src ${BASE_CADD}
-cp -rv CADD.sh ${BASE_CADD}
+mkdir -p ${BASE_CADD}/{data,config,src}
+chgrp -R gsc ${BASE_CADD}
+
 
 chmod -R 0666 ${BASE_CADD}/data
+chmod -R 0666 ${BASE_CADD}/config
+chmod -R 0666 ${BASE_CADD}/config/*.cfg
+
+cp -frv config ${BASE_CADD}
+cp -frv data ${BASE_CADD}
+cp -frv src ${BASE_CADD}
+cp -frv CADD.sh ${BASE_CADD}
+
+chmod -R 0666 ${BASE_CADD}/data
+chmod -R 0666 ${BASE_CADD}/config
+chmod -R 0777 ${BASE_CADD}/CADD.sh
+
+touch ${BASE_CADD}/data/flag
+chmod 0666 ${BASE_CADD}/data/flag
+
+ls -al ${BASE_CADD}/data
+ls -al ${BASE_CADD}/config
 
 exit 0;
