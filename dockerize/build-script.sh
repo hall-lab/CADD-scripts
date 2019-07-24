@@ -3,13 +3,13 @@
 cd /build
 
 # install anaconda
-curl -L -O https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
+#curl -L -O https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh
 
-bash ./Miniconda2-latest-Linux-x86_64.sh -b -p /opt/conda
-export PATH=/opt/conda/bin:$PATH
-conda init
-echo "{}" > /.condarc
-chmod 0666 /.condarc
+#bash ./Miniconda2-latest-Linux-x86_64.sh -b -p /opt/conda
+#export PATH=/opt/conda/bin:$PATH
+#conda init
+#echo "{}" > /.condarc
+#chmod 0666 /.condarc
 
 
 # install CADD

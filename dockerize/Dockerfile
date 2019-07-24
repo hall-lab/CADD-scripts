@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM continuumio/miniconda
 MAINTAINER Indraniel Das <idas@wustl.edu>
 
 # Volumes
