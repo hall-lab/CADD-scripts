@@ -68,19 +68,15 @@ BASE_CADD=/opt/CADD-1-5
 mkdir -p ${BASE_CADD}/{data,config,src}
 chgrp -R gsc ${BASE_CADD}
 
-
-chmod -R 0666 ${BASE_CADD}/data
-chmod -R 0666 ${BASE_CADD}/config
-chmod -R 0666 ${BASE_CADD}/config/*.cfg
-
 cp -frv config ${BASE_CADD}
 cp -frv data ${BASE_CADD}
 cp -frv src ${BASE_CADD}
 cp -frv CADD.sh ${BASE_CADD}
 
-chmod -R 0666 ${BASE_CADD}/data
-chmod -R 0666 ${BASE_CADD}/config
+chmod -R 0777 ${BASE_CADD}/data
+chmod -R 0777 ${BASE_CADD}/config
 chmod -R 0777 ${BASE_CADD}/CADD.sh
+chmod -R 0666 ${BASE_CADD}/config/*.cfg
 
 touch ${BASE_CADD}/data/flag
 chmod 0666 ${BASE_CADD}/data/flag
