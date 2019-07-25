@@ -120,13 +120,13 @@ mkdir -p $TMP_FOLDER
 
 ### Pipeline
 
-# Loading the environment
-if [ "$VERSION" == "v1.4" ]
-then
-    source activate cadd-env
-else
-    source activate cadd-env-v1.5
-fi
+# # Loading the environment
+# if [ "$VERSION" == "v1.4" ]
+# then
+#     source activate cadd-env
+# else
+#     source activate cadd-env-v1.5
+# fi
 
 # File preparation
 if [ "$FILEFORMAT" == "vcf" ]
