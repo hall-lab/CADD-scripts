@@ -113,7 +113,7 @@ if args.header:
 for record in vcf_reader:
 
     res = {}
-    res['Chrom'] = record.CHROM
+    res['Chrom'] = record.CHROM.replace("chr","")
     if len(res['Chrom']) > 2: # quickfix: only support main chromosomes, discard others
         continue
 
