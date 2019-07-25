@@ -119,6 +119,46 @@ You run CADD via the script `CADD.sh` which technically only requieres an either
 
 You can test whether your CADD is set up properly by comparing to the example files in the `test` directory.
 
+#### Working with a Dockerized version of `CADD`
+
+The [CADD docker image (halllab/cadd-b38-v1-5](https://hub.docker.com/r/halllab/cadd-b38-v1-5) does not include the data dependencies (genome annotations, and prescored variants) associated with `CADD`, only the code.  You'll need to manually set that up.  How you set it up depends upon which compute environment you are running the docker image in.
+
+###### Running inside the MGI
+
+When running this dockerized version of CADD inside the [MGI](https://genome.wustl.edu), you'll need to do the following:
+
+1.  Start up a LSF job with the docker image:
+    
+        LSF_DOCKER_PRESERVE_ENVIRONMENT=false bsub -Is -q ccdg -R 'rusage[gtmp=1] select[gtmp>1]' -a 'docker(halllab/cadd-b38-v1-5:v5)' /bin/bash -l
+    
+2.  Export the relevant environment variables:
+    
+        export PATH="/opt/CADD-1-5:/opt/conda/envs/cadd-env-v1.5/bin:/opt/conda/bin:${PATH}"
+        export PYTHONPATH=/opt/conda/envs/cadd-env-v1.5/lib/python2.7/site-packages
+    
+3.  Link in the relevant annotation and prescored data:
+    
+        # link data dir
+        ln -s /gscmnt/gc2802/halllab/ckang/CCDG/custom_cadd/data/annotations/GRCh38_v1.5/ /opt/CADD-1-5/data/annotations
+    
+###### Running in Google Cloud / GCP Compute Instance
+
+1.  Start up a compute instance with Docker
+2.  Pull the docker image
+    
+        docker pull halllab/cadd-b38-v1-5:v5
+
+3.  Copy the relevant CADD annotation and prescored variants data from the bucket to the instance
+    
+        mkdir -p $HOME/data
+        gsutil cp gs://<bucket-name>/CDG/custom_cadd/data/annotations/GRCh38_v1.5.tar.gz $HOME/data
+        cd $HOME/data
+        tar zxvf GRCh38_v1.5.tar.gz
+
+4.  Run the docker image with the relevant mounts
+    
+        docker container run -i -t --rm -v $HOME/data:/opt/CADD-1-5/data/annotations halllab/cadd-b38-v1-5:v5 /bin/bash -l
+
 ### Update
 
 Between versions 1.4 and 1.5, we adjusted the CADD repository slightly. If you used CADD before and obviously do not want to download all v1.4 files again, please proceed as follows:
