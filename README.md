@@ -121,7 +121,7 @@ You can test whether your CADD is set up properly by comparing to the example fi
 
 #### Working with a Dockerized version of `CADD`
 
-The [CADD docker image (halllab/cadd-b38-v1-5](https://hub.docker.com/r/halllab/cadd-b38-v1-5) does not include the data dependencies (genome annotations, and prescored variants) associated with `CADD`, only the code.  You'll need to manually set that up.  How you set it up depends upon which compute environment you are running the docker image in.
+The [CADD docker image (halllab/cadd-b38-v1-5)](https://hub.docker.com/r/halllab/cadd-b38-v1-5) does not include the data dependencies (genome annotations, and prescored variants) associated with `CADD`, only the code.  You'll need to manually set that up.  How you set it up depends upon which compute environment you are running the docker image in.
 
 ###### Running inside the MGI
 
