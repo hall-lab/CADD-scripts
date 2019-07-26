@@ -143,7 +143,8 @@ When running this dockerized version of CADD inside the [MGI](https://genome.wus
     
 ###### Running in Google Cloud / GCP Compute Instance
 
-1.  Start up a compute instance with Docker
+1.  [Start up a compute instance](https://gist.github.com/indraniel/63929f5953482fe1a89f84afb26fbc32#creating-a-production-vm-instance)
+2.  [Install Docker](https://gist.github.com/indraniel/63929f5953482fe1a89f84afb26fbc32#installing-the-latest-version-of-docker-on-a-vm)
 2.  Pull the docker image
     
         docker pull halllab/cadd-b38-v1-5:v6
