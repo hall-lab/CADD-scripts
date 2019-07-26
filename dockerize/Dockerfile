@@ -4,17 +4,19 @@ MAINTAINER Indraniel Das <idas@wustl.edu>
 # Volumes
 VOLUME /build
 
-RUN apt-get update -qq \
-    && apt-get -y install \
+RUN apt-get update -qq && \
+    apt-get -y install --no-install-recommends \
         apt-transport-https \
-        less \
-        emacs \
         bzip2 \
-        git \
         ca-certificates \
         curl \
+        emacs \
+        git \
+        htop \
+        less \
         libnss-sss \
-    --no-install-recommends
+        procps && \
+    apt-get clean
 
 # https://serverfault.com/questions/683605/docker-container-timezone-will-not-reflect-changes
 ENV TZ=America/Chicago
@@ -27,7 +29,6 @@ WORKDIR /build
 COPY ./build-script.sh /build
 
 RUN ["/bin/bash", "-x", "build-script.sh"]
-RUN apt-get clean all
 
-ENV PATH="/opt/CADD-1-5:/opt/conda/envs/cadd-env-v1.5/bin:/opt/conda/bin:${PATH}"
-ENV PYTHONPATH=/opt/conda/envs/cadd-env-v1.5/lib/python2.7/site-packages
+ENV PATH="/opt/CADD-1-5:/opt/conda/envs/cadd-env-v1.5/bin:/opt/conda/bin:${PATH}" \
+    PYTHONPATH=/opt/conda/envs/cadd-env-v1.5/lib/python2.7/site-packages
