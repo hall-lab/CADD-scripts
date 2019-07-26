@@ -129,7 +129,7 @@ When running this dockerized version of CADD inside the [MGI](https://genome.wus
 
 1.  Start up a LSF job with the docker image:
     
-        LSF_DOCKER_PRESERVE_ENVIRONMENT=false bsub -Is -q ccdg -R 'rusage[gtmp=1] select[gtmp>1]' -a 'docker(halllab/cadd-b38-v1-5:v6)' /bin/bash -l
+        bsub -Is -q ccdg -R 'rusage[gtmp=1] select[gtmp>1]' -a 'docker(halllab/cadd-b38-v1-5:v6)' /bin/bash -l
     
 2.  Export the relevant environment variables:
     
