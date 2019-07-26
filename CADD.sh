@@ -110,7 +110,7 @@ if [[ -z "${LSB_JOBID}" ]]; then
     TMP_FOLDER=$(mktemp -d)
 else
     # LSF tmp directory location (based on LSF JOB ID)
-    TMP_FOLDER=$(mktemp -d --tempdir=/tmp/${LSB_JOBID}.tmpdir)
+    TMP_FOLDER=$(mktemp -d --tmpdir /tmp/${LSB_JOBID}.tmpdir/tmp.XXXXXX)
 fi
 trap "rm -rf $TMP_FOLDER" ERR EXIT
 
