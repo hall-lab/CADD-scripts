@@ -151,14 +151,14 @@ When running this dockerized version of CADD inside the [MGI](https://genome.wus
 
 3.  Copy the relevant CADD annotation and prescored variants data from the bucket to the instance
     
-        mkdir -p $HOME/data
-        gsutil cp gs://<bucket-name>/CDG/custom_cadd/data/annotations/GRCh38_v1.5.tar.gz $HOME/data
-        cd $HOME/data
-        tar zxvf GRCh38_v1.5.tar.gz
+        mkdir -p $HOME/data/annotations
+        cd $HOME/data/annotations
+        curl -L -O http://krishna.gs.washington.edu/download/CADD/v1.5/GRCh38/annotationsGRCh38.tar.gz
+        tar zxvf annotationsGRCh38.tar.gz
 
 4.  Run the docker image with the relevant mounts
     
-        docker container run -i -t --rm -v $HOME/data:/opt/CADD-1-5/data/annotations halllab/cadd-b38-v1-5:v6 /bin/bash -l
+        docker container run -i -t --rm -v $HOME/data/annotations:/opt/CADD-1-5/data/annotations halllab/cadd-b38-v1-5:v6 /bin/bash -l
 
 ### Update
 
