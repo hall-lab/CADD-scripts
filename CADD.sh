@@ -106,7 +106,12 @@ fi
 
 # Setup temporary folder that is removed reliably on exit and is outside of
 # the CADD-scripts directory.
-TMP_FOLDER=$(mktemp -d)
+if [[ -z "${LSB_JOBID}" ]]; then
+    TMP_FOLDER=$(mktemp -d)
+else
+    # LSF tmp directory location (based on LSF JOB ID)
+    TMP_FOLDER=$(mktemp -d --tempdir=/tmp/${LSB_JOBID}.tmpdir)
+fi
 trap "rm -rf $TMP_FOLDER" ERR EXIT
 
 # Temp files
