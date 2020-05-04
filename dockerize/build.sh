@@ -56,9 +56,9 @@ bash ./install.sh
 #
 #done
 
-#BASE_CADD=/opt/CADD-1-6
+BASE_CADD=/opt/CADD-1-6
 #mkdir -p ${BASE_CADD}/{data,config,src,envs}
-#chgrp -R gsc ${BASE_CADD}
+chgrp -R gsc ${BASE_CADD}
 
 #cp -frv config ${BASE_CADD}
 #cp -frv data ${BASE_CADD}
