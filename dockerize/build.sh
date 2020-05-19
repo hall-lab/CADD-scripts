@@ -60,11 +60,11 @@ BASE_CADD=/opt/CADD-1-6
 #mkdir -p ${BASE_CADD}/{data,config,src,envs}
 chgrp -R gsc ${BASE_CADD}
 
-#cp -frv config ${BASE_CADD}
-#cp -frv data ${BASE_CADD}
-#cp -frv src ${BASE_CADD}
-#cp -frv envs ${BASE_CADD}
-#cp -frv CADD.sh ${BASE_CADD}
+cp -frv config ${BASE_CADD}
+cp -frv data ${BASE_CADD}
+cp -frv src ${BASE_CADD}
+cp -frv envs ${BASE_CADD}
+cp -frv CADD.sh ${BASE_CADD}
 
 chmod -R 0777 ${BASE_CADD}/data
 chmod -R 0777 ${BASE_CADD}/config
