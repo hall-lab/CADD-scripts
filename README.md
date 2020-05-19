@@ -133,7 +133,7 @@ When running this dockerized version of CADD inside the [MGI](https://genome.wus
 
 1.  Start up a LSF job with the docker image:
     
-        bsub -Is -q ccdg -R 'rusage[gtmp=1] select[gtmp>1]' -a 'docker(halllab/cadd-b38-v1-6:v1)' /bin/bash -l
+        bsub -Is -q ccdg -R 'rusage[gtmp=1] select[gtmp>1]' -a 'docker(halllab/cadd-b38-v1-6:v2)' /bin/bash -l
     
 2.  Export the relevant environment variables:
     
@@ -151,7 +151,7 @@ When running this dockerized version of CADD inside the [MGI](https://genome.wus
 2.  [Install Docker](https://gist.github.com/indraniel/63929f5953482fe1a89f84afb26fbc32#installing-the-latest-version-of-docker-on-a-vm)
 2.  Pull the docker image
     
-        docker pull halllab/cadd-b38-v1-6:v1
+        docker pull halllab/cadd-b38-v1-6:v2
 
 3.  Copy the relevant CADD annotation and prescored variants data from the bucket to the instance
     
@@ -162,7 +162,7 @@ When running this dockerized version of CADD inside the [MGI](https://genome.wus
 
 4.  Run the docker image with the relevant mounts
     
-        docker container run -i -t --rm -v $HOME/data/annotations:/opt/CADD-1-6/data/annotations halllab/cadd-b38-v1-6:v1 /bin/bash -l
+        docker container run -i -t --rm -v $HOME/data/annotations:/opt/CADD-1-6/data/annotations halllab/cadd-b38-v1-6:v2 /bin/bash -l
 
 
 ### Update
