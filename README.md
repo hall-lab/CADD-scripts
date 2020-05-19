@@ -123,6 +123,48 @@ You run CADD via the script `CADD.sh` which technically only requieres an either
 
 You can test whether your CADD is set up properly by comparing to the example files in the `test` directory.
 
+#### Working with a Dockerized version of `CADD`
+
+The [CADD docker image (halllab/cadd-b38-v1-6)](https://hub.docker.com/r/halllab/cadd-b38-v1-6) does not include the data dependencies (genome annotations, and prescored variants) associated with `CADD`, only the code.  You'll need to manually set that up.  How you set it up depends upon which compute environment you are running the docker image in.
+
+###### Running inside the MGI
+
+When running this dockerized version of CADD inside the [MGI](https://genome.wustl.edu), you'll need to do the following:
+
+1.  Start up a LSF job with the docker image:
+    
+        bsub -Is -q ccdg -R 'rusage[gtmp=1] select[gtmp>1]' -a 'docker(halllab/cadd-b38-v1-6:v1)' /bin/bash -l
+    
+2.  Export the relevant environment variables:
+    
+        export PATH="/opt/CADD-1-6:/opt/conda/bin:${PATH}"
+        #export PYTHONPATH=/opt/conda/envs/cadd-env-v1.5/lib/python2.7/site-packages
+    
+3.  Link in the relevant annotation and prescored data:
+    
+        # link data dir
+        ln -s /gscmnt/gc2802/halllab/ckang/CCDG/custom_cadd/data/annotations/GRCh38_v1.5/ /opt/CADD-1-6/data/annotations
+    
+###### Running in Google Cloud / GCP Compute Instance
+
+1.  [Start up a compute instance](https://gist.github.com/indraniel/63929f5953482fe1a89f84afb26fbc32#creating-a-production-vm-instance)
+2.  [Install Docker](https://gist.github.com/indraniel/63929f5953482fe1a89f84afb26fbc32#installing-the-latest-version-of-docker-on-a-vm)
+2.  Pull the docker image
+    
+        docker pull halllab/cadd-b38-v1-6:v1
+
+3.  Copy the relevant CADD annotation and prescored variants data from the bucket to the instance
+    
+        mkdir -p $HOME/data/annotations
+        cd $HOME/data/annotations
+        curl -L -O http://krishna.gs.washington.edu/download/CADD/v1.5/GRCh38/annotationsGRCh38.tar.gz
+        tar zxvf annotationsGRCh38.tar.gz
+
+4.  Run the docker image with the relevant mounts
+    
+        docker container run -i -t --rm -v $HOME/data/annotations:/opt/CADD-1-6/data/annotations halllab/cadd-b38-v1-6:v1 /bin/bash -l
+
+
 ### Update
 
 Version 1.6 includes some changes in comparison to v1.5. Next to the obvious switch of the pipeline into a Snakemake workflow which became necessary due to the ongoin issues with `conda activate`, the new models for v1.6 are extended by more specialized annotations for splicing variants, as well as a few minor changes in some other annotations (most prominent: fixed gerp for GRCh38) and changes in consequence categories which make this scripts incompatible with CADD v1.4 and v1.5. If you are still using those version, please use [version 1.5 of this repository](https://github.com/kircherlab/CADD-scripts/archive/CADD1.5.zip).
