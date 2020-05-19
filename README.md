@@ -143,7 +143,7 @@ When running this dockerized version of CADD inside the [MGI](https://genome.wus
 3.  Link in the relevant annotation and prescored data:
     
         # link data dir
-        ln -s /gscmnt/gc2802/halllab/ckang/CCDG/custom_cadd/data/annotations/GRCh38_v1.5/ /opt/CADD-1-6/data/annotations
+        ln -s /gscmnt/gc2802/halllab/ckang/CCDG/custom_cadd/data/annotations/GRCh38_v1.6/ /opt/CADD-1-6/data/annotations
     
 ###### Running in Google Cloud / GCP Compute Instance
 
@@ -157,7 +157,7 @@ When running this dockerized version of CADD inside the [MGI](https://genome.wus
     
         mkdir -p $HOME/data/annotations
         cd $HOME/data/annotations
-        curl -L -O http://krishna.gs.washington.edu/download/CADD/v1.5/GRCh38/annotationsGRCh38.tar.gz
+        curl -L -O http://krishna.gs.washington.edu/download/CADD/v1.6/GRCh38/annotationsGRCh38_v1.6.tar.gz
         tar zxvf annotationsGRCh38.tar.gz
 
 4.  Run the docker image with the relevant mounts
