@@ -137,8 +137,8 @@ When running this dockerized version of CADD inside the [MGI](https://genome.wus
     
 2.  Export the relevant environment variables:
     
-        export PATH="/opt/CADD-1-6:/opt/conda/bin:${PATH}"
-        #export PYTHONPATH=/opt/conda/envs/cadd-env-v1.5/lib/python2.7/site-packages
+        export PATH="/opt/CADD-1-6:/opt/conda/envs/76c7eed9/bin:/opt/conda/bin:${PATH}"
+        export PYTHONPATH=/opt/conda/envs/76c7eed9/lib/python2.7/site-packages
     
 3.  Link in the relevant annotation and prescored data:
     
