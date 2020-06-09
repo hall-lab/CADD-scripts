@@ -144,6 +144,26 @@ When running this dockerized version of CADD inside the [MGI](https://genome.wus
     
         # link data dir
         ln -s /gscmnt/gc2802/halllab/ckang/CCDG/custom_cadd/data/annotations/GRCh38_v1.6/ /opt/CADD-1-6/data/annotations
+
+Note that when running CADD in this docker image, you can't run `CADD.sh` from inside the `/opt/CADD-1-6` directory.  You'll need to a wrapper bash script to do something like this:
+
+```bash
+#!/bin/bash
+
+# assuming your working directory is something like:
+# /gscmnt/gc1234/foo/bar/baz
+
+export PATH="/opt/CADD-1-6:/opt/conda/envs/76c7eed9/bin:/opt/conda/bin:${PATH}"
+export PYTHONPATH=/opt/conda/envs/76c7eed9/lib/python2.7/site-packages
+
+# link data dir
+ln -s /gscmnt/gc2802/halllab/ckang/CCDG/custom_cadd/data/annotations/GRCh38_v1.6/ /opt/CADD-1-6/data/annotations
+
+# run CADD
+/opt/CADD-1-6/CADD.sh $1
+```
+
+Afterwards, you can run the wrapper bash script inside the docker image as `/bin/bash /path/to/your-cadd-wrapper-script-name.sh /path/to/input.vcf`.
     
 ###### Running in Google Cloud / GCP Compute Instance
 
